@@ -90,7 +90,7 @@ def seedata():
             return None
         todos = [x.strip() for x in f]
     number = 1
-    print('Line Number          State                         TODO'.center(50))
+    print('Line Number          State                         TODO/Reminder'.center(50))
     for todo in todos:
         if todo.startswith('%%%%'):
             print(Fore.LIGHTMAGENTA_EX+str(number)+Fore.RED+Style.BRIGHT+'    VERY IMPORTANT'.center(50)+todo[4:]+Fore.RESET+Style.RESET_ALL)
