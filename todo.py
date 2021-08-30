@@ -20,6 +20,7 @@ def markTodo(line):
 
     if todos[line].startswith('(((('):
         print(Fore.CYAN+"This is a Reminder ! You can't Mark it done !"+Fore.RESET+"\n\n\n\n\n")
+        return False
     else:
         todos[line] = "####"+todos[line][4:]
 
