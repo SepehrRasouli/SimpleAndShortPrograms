@@ -37,7 +37,7 @@ def addTodo():
     """ 
     1 = %%%% 2- ^^^^ 3- &&&& 4- @@@@ , #### = Done """
     print("Which One ?")
-    choice = input("1- Todo 2- Reminder")
+    choice = input("1- Todo 2- Reminder > ")
 
     if choice == '1':
         pass
@@ -105,7 +105,7 @@ def seedata():
             number += 1
 
         elif todo.startswith('(((('):
-            print(Fore.LIGHTMAGENTA_EX+str(number)+Fore.LIGHTCYAN_EX+'Reminder    -   '.center(50)+todo[4:]+Fore.RESET)
+            print(Fore.LIGHTMAGENTA_EX+str(number)+Fore.LIGHTCYAN_EX+'Reminder  -   '.center(50)+todo[4:]+Fore.RESET)
             number += 1
 
         elif todo.startswith('####'): 
