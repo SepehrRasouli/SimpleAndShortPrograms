@@ -45,9 +45,9 @@ def addTodo():
 
     else:
         addReminder()
-    
+        return False     
     print("How much important ? ")
-    choice = input("1- Very Important 2- Important 3- Ehh... 4- Fun ha ? > ")
+    choice = input("1- Very Important 2- Important 3- Not So Important 4- Not Important > ")
     meta = ""
     if choice == "1":
         meta = "%%%%"
@@ -79,7 +79,7 @@ def addReminder():
         f.write(f"(((({reminder}")
 
     print(Fore.GREEN+'Done !'+Fore.RESET+"\n\n\n\n\n")
-    main()
+
 
 def seedata():
     with open(file,'r') as f:
@@ -90,27 +90,28 @@ def seedata():
             return None
         todos = [x.strip() for x in f]
     number = 1
-    print('Line Number         State                          TODO'.center(50))
+    print('Line Number          State                         TODO'.center(50))
     for todo in todos:
         if todo.startswith('%%%%'):
-            print(Fore.LIGHTMAGENTA_EX+str(number)+Fore.RED+Style.BRIGHT+'         VERY IMPORTANT   -   '.center(50)+todo[4:]+Fore.RESET+Style.RESET_ALL)
+            print(Fore.LIGHTMAGENTA_EX+str(number)+Fore.RED+Style.BRIGHT+'    VERY IMPORTANT'.center(50)+todo[4:]+Fore.RESET+Style.RESET_ALL)
             number += 1
         elif todo.startswith('^^^^'):
-            print(Fore.LIGHTMAGENTA_EX+str(number)+Fore.LIGHTRED_EX+Style.DIM+'IMPORTANT   -   '.center(50)+todo[4:]+Fore.RESET+Style.RESET_ALL)
+            print(Fore.LIGHTMAGENTA_EX+str(number)+Fore.LIGHTRED_EX+Style.DIM+'IMPORTANT'.center(50)+todo[4:]+Fore.RESET+Style.RESET_ALL)
             number += 1
         elif todo.startswith('&&&&'):
-            print(Fore.LIGHTMAGENTA_EX+str(number)+Fore.LIGHTYELLOW_EX+'Eh...   -   '.center(50)+todo[4:]+Fore.RESET)
+            print(Fore.LIGHTMAGENTA_EX+str(number)+Fore.LIGHTYELLOW_EX+'      Not So Important'.center(50)+todo[4:]+Fore.RESET)
             number += 1
         elif todo.startswith('@@@@'):
-            print(Fore.LIGHTMAGENTA_EX+str(number)+Fore.LIGHTGREEN_EX+'Fun !  -   '.center(50)+todo[4:]+Fore.RESET)
+            print(Fore.LIGHTMAGENTA_EX+str(number)+Fore.LIGHTGREEN_EX+'   Not Important'.center(50)+todo[4:]+Fore.RESET)
             number += 1
 
         elif todo.startswith('(((('):
-            print(Fore.LIGHTMAGENTA_EX+str(number)+Fore.LIGHTCYAN_EX+'Reminder  -   '.center(50)+todo[4:]+Fore.RESET)
+            print(Fore.LIGHTMAGENTA_EX+str(number)+Fore.CYAN+'Reminder '.center(50)+todo[4:]+Fore.RESET)
+
             number += 1
 
         elif todo.startswith('####'): 
-            print(Fore.LIGHTMAGENTA_EX+str(number)+Fore.LIGHTCYAN_EX+'Done !  -   '.center(50)+todo[4:]+Fore.RESET)
+            print(Fore.LIGHTMAGENTA_EX+str(number)+Fore.LIGHTCYAN_EX+'Done !    '.center(50)+todo[4:]+Fore.RESET)
             number += 1
         else:
             pass
@@ -119,7 +120,7 @@ def seedata():
 
 
 def main():
-    print(Fore.GREEN+"Hello Sepehr , I hope you're doing well.")
+    print(Fore.GREEN+"Hello ! , I hope you're doing well.")
     print(Style.RESET_ALL)
     print('Your current Data list : ')
     seedata()
@@ -140,7 +141,7 @@ def main():
         SystemExit
 
     else:
-        print(Fore.RED+"Wrong Choice Sepehr !!\n\n\n")
+        print(Fore.RED+"Wrong Choice !!\n\n\n")
         print(Style.RESET_ALL)
         main()
 
