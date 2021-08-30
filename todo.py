@@ -17,6 +17,9 @@ def markTodo(line):
     if todos[line].startswith('####'):
         print(Fore.CYAN+'Already Marked Done !'+Fore.RESET+"\n\n\n\n\n")
         return False
+
+    if todos[line].startswith('(((('):
+        print(Fore.CYAN+"This is a Reminder ! You can't Mark it done !"+Fore.RESET+"\n\n\n\n\n")
     else:
         todos[line] = "####"+todos[line][4:]
 
@@ -31,7 +34,17 @@ def markTodo(line):
     print(Fore.GREEN+'Done !'+Fore.RESET+"\n\n\n\n\n")
 
 def addTodo():
-    # 1 = %%%% 2- ^^^^ 3- &&&& 4- @@@@ , #### = Done
+    """ 
+    1 = %%%% 2- ^^^^ 3- &&&& 4- @@@@ , #### = Done """
+    print("Which One ?")
+    choice = input("1- Todo 2- Reminder")
+
+    if choice == '1':
+        pass
+
+    else:
+        addReminder()
+    
     print("How much important ? ")
     choice = input("1- Very Important 2- Important 3- Ehh... 4- Fun ha ? > ")
     meta = ""
@@ -57,7 +70,8 @@ def addTodo():
 
 
 def addReminder():
-    # reminder = (((( 
+    """  Adds Reminder
+    reminder = ((((  ."""
 
     reminder = input("Reminder ? > ")
     with open(file,'a') as f:
@@ -66,7 +80,7 @@ def addReminder():
     print(Fore.GREEN+'Done !'+Fore.RESET+"\n\n\n\n\n")
     main()
 
-def seeTodo():
+def seedata():
     with open(file,'r') as f:
         f = f.readlines()
         if len(f) < 1:
@@ -91,7 +105,7 @@ def seeTodo():
             number += 1
 
         elif todo.startswith('(((('):
-            print(Fore.LIGHTMAGENTA_EX+str(number)+Fore.LIGHTCYAN_EX+'Reminder    -   ')
+            print(Fore.LIGHTMAGENTA_EX+str(number)+Fore.LIGHTCYAN_EX+'Reminder    -   '.center(50)+todo[4:]+Fore.RESET)
             number += 1
 
         elif todo.startswith('####'): 
@@ -106,9 +120,9 @@ def seeTodo():
 def main():
     print(Fore.GREEN+"Hello Sepehr , I hope you're doing well.")
     print(Style.RESET_ALL)
-    print('Your current TODO list : ')
-    seeTodo()
-    print("1- Mark a todo 2-Add a todo 3- Clear Todo 4- Exit")
+    print('Your current Data list : ')
+    seedata()
+    print(r"1- Mark a todo 2-Add a todo\reminder 3- Clear Todo 4- Exit")
 
     choice = input("> ")
     if choice == "1":
