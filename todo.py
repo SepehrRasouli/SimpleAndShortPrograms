@@ -142,7 +142,7 @@ def main():
         main()
     elif choice == "2":
         addTodo()
-
+        main()
     elif choice == "3":
         clearTodo()
     elif choice == "4":
