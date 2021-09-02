@@ -77,7 +77,12 @@ def addReminder():
     """  Adds Reminder
     reminder = ((((  ."""
 
-    reminder = input("Reminder ? > ")
+    reminder = input("Reminder ? [Enter 0 to exit] > ")
+    if reminder == "0":
+        return False
+
+    else:
+        pass
     with open(file,'a') as f:
         f.write(f"(((({reminder}")
 
