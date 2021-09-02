@@ -4,7 +4,7 @@ from colorama import init
 init()
 
 
-file = "todo.txt"
+file = "./todo.txt"
 def clearTodo():
     with open(file,'w') as f:
         f.write('')
@@ -38,16 +38,18 @@ def addTodo():
     """ 
     1 = %%%% 2- ^^^^ 3- &&&& 4- @@@@ , #### = Done """
     print("Which One ?")
-    choice = input("1- Todo 2- Reminder > ")
+    choice = input("1- Todo 2- Reminder 3- Exit > ")
 
     if choice == '1':
         pass
-
+    
+    elif choice == '3':
+        return False
     else:
         addReminder()
         return False     
     print("How much important ? ")
-    choice = input("1- Very Important 2- Important 3- Not So Important 4- Not Important > ")
+    choice = input("1- Very Important 2- Important 3- Not So Important 4- Not Important 5- Exit > ")
     meta = ""
     if choice == "1":
         meta = "%%%%"
@@ -57,10 +59,11 @@ def addTodo():
 
     elif choice == "3":
         meta = "&&&&"
-
-    else:
+    
+    elif choice == "4":
         meta = "@@@@"
-
+    else:
+        return False
     todo = input('Todo ? > ')
 
     with open(file,'a') as f:
@@ -90,7 +93,7 @@ def seedata():
             return None
         todos = [x.strip() for x in f]
     number = 1
-    print('Line Number          State                         TODO'.center(50))
+    print('Line Number          State                         TODO/Reminder'.center(50))
     for todo in todos:
         if todo.startswith('%%%%'):
             print(Fore.LIGHTMAGENTA_EX+str(number)+Fore.RED+Style.BRIGHT+'    VERY IMPORTANT'.center(50)+todo[4:]+Fore.RESET+Style.RESET_ALL)
