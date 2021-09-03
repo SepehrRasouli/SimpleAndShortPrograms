@@ -155,7 +155,7 @@ def main():
         print(Style.RESET_ALL)
         print('Your current Data list : ')
         seedata()
-        print(r"1- Mark a todo 2-Add a todo\reminder 3- Clear Todo 4- Exit")
+        print(r"1- Mark a todo 2-Add a TODO/Reminder 3- Clear Todo 4- Exit")
 
         choice = input("> ")
         if choice == "1":
