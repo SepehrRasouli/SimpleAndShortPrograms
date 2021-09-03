@@ -1,14 +1,17 @@
 # Speedrun to write a good todo app.
 from colorama import Fore,Style
 from colorama import init
+import time,os
 init()
 
-
+clsCommand = ""
 file = "./todo.txt"
 def clearTodo():
     with open(file,'w') as f:
         f.write('')
     main()
+
+
 
 def markTodo(line):
     with open(file,'r') as f:
@@ -16,10 +19,15 @@ def markTodo(line):
         todos = [x.strip() for x in f]
     if todos[line].startswith('####'):
         print(Fore.CYAN+'Already Marked Done !'+Fore.RESET+"\n\n\n\n\n")
+        time.sleep(3)
+        os.system(clsCommand)
         return False
 
     if todos[line].startswith('(((('):
         print(Fore.CYAN+"This is a Reminder ! You can't Mark it done !"+Fore.RESET+"\n\n\n\n\n")
+        time.sleep(3)
+        os.system(clsCommand)
+        
         return False
     else:
         todos[line] = "####"+todos[line][4:]
@@ -33,7 +41,9 @@ def markTodo(line):
             f.write(todo+"\n")
 
     print(Fore.GREEN+'Done !'+Fore.RESET+"\n\n\n\n\n")
-
+    time.sleep(3)
+    os.system(clsCommand)
+ 
 def addTodo():
     """ 
     1 = %%%% 2- ^^^^ 3- &&&& 4- @@@@ , #### = Done """
@@ -70,6 +80,9 @@ def addTodo():
         f.write(f'{meta}{todo}\n')
 
     print(Fore.GREEN+'Done !'+Fore.RESET+"\n\n\n\n\n")
+    time.sleep(3)
+    os.system(clsCommand)
+ 
     main()
 
 
@@ -87,7 +100,9 @@ def addReminder():
         f.write(f"(((({reminder}")
 
     print(Fore.GREEN+'Done !'+Fore.RESET+"\n\n\n\n\n")
-
+    time.sleep(3)
+    os.system(clsCommand)
+ 
 
 def seedata():
     with open(file,'r') as f:
@@ -128,6 +143,8 @@ def seedata():
 
 
 def main():
+    global clsCommand
+    clsCommand = "cls" if os.name == 'nt' else "clear"
     print(Fore.GREEN+"Hello ! , I hope you're doing well.")
     print(Style.RESET_ALL)
     print('Your current Data list : ')
@@ -151,6 +168,8 @@ def main():
     else:
         print(Fore.RED+"Wrong Choice !!\n\n\n")
         print(Style.RESET_ALL)
+        time.sleep(3)
+        os.system(clsCommand)
         main()
 
 main()
