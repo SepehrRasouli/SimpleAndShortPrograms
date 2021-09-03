@@ -9,7 +9,7 @@ file = "./todo.txt"
 def clearTodo():
     with open(file,'w') as f:
         f.write('')
-    main()
+    
 
 
 
@@ -18,13 +18,13 @@ def markTodo(line):
         f = f.readlines()
         todos = [x.strip() for x in f]
     if todos[line].startswith('####'):
-        print(Fore.CYAN+'Already Marked Done !'+Fore.RESET+"\n\n\n\n\n")
+        print(Fore.CYAN+'Already Marked Done !'+Fore.RESET)
         time.sleep(3)
         os.system(clsCommand)
         return False
 
     if todos[line].startswith('(((('):
-        print(Fore.CYAN+"This is a Reminder ! You can't Mark it done !"+Fore.RESET+"\n\n\n\n\n")
+        print(Fore.CYAN+"This is a Reminder ! You can't Mark it done !"+Fore.RESET)
         time.sleep(3)
         os.system(clsCommand)
         
@@ -40,7 +40,7 @@ def markTodo(line):
         for todo in todos:
             f.write(todo+"\n")
 
-    print(Fore.GREEN+'Done !'+Fore.RESET+"\n\n\n\n\n")
+    print(Fore.GREEN+'Done !'+Fore.RESET)
     time.sleep(3)
     os.system(clsCommand)
  
@@ -79,13 +79,9 @@ def addTodo():
     with open(file,'a') as f:
         f.write(f'{meta}{todo}\n')
 
-    print(Fore.GREEN+'Done !'+Fore.RESET+"\n\n\n\n\n")
+    print(Fore.GREEN+'Done !'+Fore.RESET)
     time.sleep(3)
     os.system(clsCommand)
- 
-    main()
-
-
 def addReminder():
     """  Adds Reminder
     reminder = ((((  ."""
@@ -99,7 +95,7 @@ def addReminder():
     with open(file,'a') as f:
         f.write(f"(((({reminder}")
 
-    print(Fore.GREEN+'Done !'+Fore.RESET+"\n\n\n\n\n")
+    print(Fore.GREEN+'Done !'+Fore.RESET)
     time.sleep(3)
     os.system(clsCommand)
  
@@ -144,32 +140,35 @@ def seedata():
 
 def main():
     global clsCommand
-    clsCommand = "cls" if os.name == 'nt' else "clear"
-    print(Fore.GREEN+"Hello ! , I hope you're doing well.")
-    print(Style.RESET_ALL)
-    print('Your current Data list : ')
-    seedata()
-    print(r"1- Mark a todo 2-Add a todo\reminder 3- Clear Todo 4- Exit")
-
-    choice = input("> ")
-    if choice == "1":
-        line = input('Line number ? > ')
-        print('\n')
-        markTodo(int(line)-1)
-        main()
-    elif choice == "2":
-        addTodo()
-        main()
-    elif choice == "3":
-        clearTodo()
-    elif choice == "4":
-        SystemExit
-
-    else:
-        print(Fore.RED+"Wrong Choice !!\n\n\n")
+    Done = False
+    while not Done:
+        clsCommand = "cls" if os.name == 'nt' else "clear"
+        print(Fore.GREEN+"Hello ! , I hope you're doing well.")
         print(Style.RESET_ALL)
-        time.sleep(3)
-        os.system(clsCommand)
-        main()
+        print('Your current Data list : ')
+        seedata()
+        print(r"1- Mark a todo 2-Add a todo\reminder 3- Clear Todo 4- Exit")
 
+        choice = input("> ")
+        if choice == "1":
+            line = input('Line number ? > ')
+            print('\n')
+            markTodo(int(line)-1)
+            continue
+        elif choice == "2":
+            addTodo()
+            continue
+        elif choice == "3":
+            clearTodo()
+            continue
+        elif choice == "4":
+            Done = True
+
+        else:
+            print(Fore.RED+"Wrong Choice !!")
+            print(Style.RESET_ALL)
+            time.sleep(3)
+            os.system(clsCommand)
+    else:
+        SystemExit
 main()
