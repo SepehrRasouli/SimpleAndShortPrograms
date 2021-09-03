@@ -141,8 +141,16 @@ def seedata():
 def main():
     global clsCommand
     Done = False
+    clsCommand = "cls" if os.name == 'nt' else "clear"
+    if os.path.isfile("todo.txt"):
+        pass
+    else:
+        print(Fore.RED+"Todo File Not Found ! Creating Todo File."+Fore.RESET)
+        with open("todo.txt","w") as f:
+            f.write("")
+        time.sleep(3)
+        os.system(clsCommand)
     while not Done:
-        clsCommand = "cls" if os.name == 'nt' else "clear"
         print(Fore.GREEN+"Hello ! , I hope you're doing well.")
         print(Style.RESET_ALL)
         print('Your current Data list : ')
