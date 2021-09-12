@@ -1,4 +1,4 @@
-# Very Simple Program To Convert Gregorian Date To Jalili And Vice Versa.
+# Very Simple Program To Convert Gregorian Date To Jalali And Vice Versa.
 import argparse as arg
 import difflib as differ
 from dateutil.parser import *
