@@ -11,14 +11,14 @@ parser.add_argument("-v",help="",action="store_true")
 args= parser.parse_args()
 
 if args.g2j:
-    Date = parse(args.g2j)
-    print(f"Gregorian => {Date} " + f"\n{Date.strftime('%A %-dth Of %B Year %Y')}"*args.v) 
-    Jalali = JalaliDate.to_jalali(Date)
+    Gregorian = parse(args.g2j) # Parses Arguments
+    print(f"Gregorian => {Gregorian }" + f"\n{Gregorian .strftime('%A, %dth Of %B Year %Y')}"*args.v) 
+    Jalali = JalaliDate.to_jalali(Gregorian )
     print(f"\nJalili => {Jalali}" + f" \n{Jalali.ctime()}"*args.v)
 
 if args.j2g:
-    Date = JalaliCalendar(args.j2g).get_date()
-    Jalali = JalaliDate.to_jalali(Date.date_obj)
+    Gregorian = JalaliCalendar(args.j2g).get_date()
+    Jalali = JalaliDate.to_jalali(Gregorian.date_obj)
     print(f"\nJalali => {Jalali}" + f" \n{Jalali.ctime()}"*args.v)
-    print(f"\nGregorian => {Date.date_obj}" + f" \n{Date.date_obj.strftime('%A %-dth Of %B Year %Y')}")
+    print(f"\nGregorian => {Gregorian.date_obj}"+ f"\n{Gregorian.date_obj.strftime('%Aو %dth Of %B Year %Y')}")
 
