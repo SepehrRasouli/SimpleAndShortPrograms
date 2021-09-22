@@ -20,5 +20,5 @@ if args.j2g:
     Gregorian = JalaliCalendar(args.j2g).get_date()
     Jalali = JalaliDate.to_jalali(Gregorian.date_obj)
     print(f"\nJalali => {Jalali}" + f" \n{Jalali.ctime()}"*args.v)
-    print(f"\nGregorian => {Gregorian.date_obj}" +
+    print(f"\nGregorian =`> {Gregorian.date_obj}" +
           f"\n{Gregorian.date_obj.strftime('%A, %dth Of %B Year %Y')}")
