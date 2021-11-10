@@ -345,4 +345,5 @@ def complete_electron_config():
 
 
 
-menu()
+while True:
+    menu()
