@@ -234,11 +234,12 @@ def electron_config():
         if atomic_number > 118:
             print("Can't calculate element's higher than 118")
         if atomic_number > 85:
-            print("[Rn 86]")
+            print("[Rn^86]")
             atomic_number -= 86
             periodic = 7
             mountain_afba_list = list(mountain_afba_fillin.keys())
             mountain_afba_fillin = mountain_afba(mountain_afba_list,periodic,atomic_number)
+            break
 
         elif element_data[1] <= atomic_number <= list(periodicity.values())[element_data[0]][1]:
             element_name = get_key_from_value(periodicity,element_data)
@@ -247,7 +248,7 @@ def electron_config():
             periodic = element_data[0] + 1
             mountain_afba_list = list(mountain_afba_fillin.keys())
             mountain_afba_fillin = mountain_afba(mountain_afba_list,periodic,atomic_number)
-            
+            break
 
     mountain_afba_fillin = arrange_mountain_afba(mountain_afba_fillin)
     mountain_afba_fillin_keys = list(mountain_afba_fillin.keys())
