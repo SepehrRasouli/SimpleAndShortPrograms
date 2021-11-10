@@ -5,4 +5,5 @@ Simple and short programs to do some good stuff !
 - WER Calculator
 - Dates-Converter *Jalali To Gregorian And Gregorian To Jalali*
 - Anti-Pybotnet
+- Infected game with pybotnet
 - Electron's configuration calculator
