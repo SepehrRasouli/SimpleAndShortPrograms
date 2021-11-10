@@ -235,6 +235,7 @@ def electron_config():
 
         if atomic_number > 118:
             print("Can't calculate element's higher than 118")
+            menu()
         if atomic_number > 85:
             print("*"*10)
             print("[Rn^86]")
@@ -275,6 +276,9 @@ def complete_electron_config():
     # Finding the noble gass we should use
         # element_data[0] is periodicity number & element_data[1] is atomic number of the noble gass
     mountain_afba_list = list(mountain_afba_fillin.keys())
+    if atomic_number > 118:
+        print("Can't calculate element's higher than 118")
+        menu()
     for orbital in mountain_afba_list:
         if orbital.endswith("s"):
             max = 2
