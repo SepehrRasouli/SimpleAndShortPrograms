@@ -3,5 +3,6 @@ Simple and short programs to do some good stuff !
 
 ### Apps In This Repository :
 - WER Calculator
-- Dates-Converter *Jalali To Gregorian And Vice Versa*
-- pybotnet Antivirus
+- Dates-Converter *Jalali To Gregorian And Gregorian To Jalali*
+- Anti-Pybotnet
+- Electron's configuration calculator
