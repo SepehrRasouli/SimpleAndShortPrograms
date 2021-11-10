@@ -9,7 +9,7 @@ periodicity = {"He":[1,2],"Ne":[2,10],"Ar":[3,18],"Kr":[4,36],"Xe":[5,54],"Rn":[
 
 
 def menu():
-    print("*"*10)
+    print("*-*"*10)
     print("Electron's Configuration calculator")
     print("1- Summarized electron configuration 2- Complete electron configuration ")
     choice = input("> ")
@@ -227,6 +227,8 @@ def electron_config():
     atomic_number = int(input("> "))
     print("Is your atom an ion ? If yes please provide the charge , otherwise leave it blank")
     ion_charge = input("> ")
+    print("\n")
+    print("The atomic configuration is :")
     # Finding the noble gass we should use
     for element_name,element_data in zip(periodicity.keys(),periodicity.values()):
         # element_data[0] is periodicity number & element_data[1] is atomic number of the noble gass
@@ -234,6 +236,7 @@ def electron_config():
         if atomic_number > 118:
             print("Can't calculate element's higher than 118")
         if atomic_number > 85:
+            print("*"*10)
             print("[Rn^86]")
             atomic_number -= 86
             periodic = 7
@@ -243,6 +246,7 @@ def electron_config():
 
         elif element_data[1] <= atomic_number <= list(periodicity.values())[element_data[0]][1]:
             element_name = get_key_from_value(periodicity,element_data)
+            print("*"*10)
             print(f"[{element_name}^{element_data[1]}]")
             atomic_number -= element_data[1]
             periodic = element_data[0] + 1
@@ -254,10 +258,10 @@ def electron_config():
     mountain_afba_fillin_keys = list(mountain_afba_fillin.keys())
     mountain_afba_fillin = check_for_exceptions(mountain_afba_fillin_keys)
     mountain_afba_fillin = ion_charge_calculator(ion_charge,mountain_afba_fillin)
-
     for orbital,value in zip(mountain_afba_fillin.keys(),mountain_afba_fillin.values()):
         if value:
             print(f"{orbital}^{value}")
+    print("*"*10+"\n")
 
 
 def complete_electron_config():
@@ -266,6 +270,8 @@ def complete_electron_config():
     atomic_number = int(input("> "))
     print("Is your atom an ion ? If yes please provide the charge , otherwise leave it blank")
     ion_charge = input("> ")
+    print("\n")
+    print("The atomic configuration is :")
     # Finding the noble gass we should use
         # element_data[0] is periodicity number & element_data[1] is atomic number of the noble gass
     mountain_afba_list = list(mountain_afba_fillin.keys())
@@ -339,9 +345,11 @@ def complete_electron_config():
     mountain_afba_fillin_keys = list(mountain_afba_fillin.keys())
     mountain_afba_fillin = check_for_exceptions(mountain_afba_fillin_keys)
     mountain_afba_fillin = ion_charge_calculator(ion_charge,mountain_afba_fillin)
+    print("*"*10)
     for orbital,value in zip(mountain_afba_fillin.keys(),mountain_afba_fillin.values()):
         if value:
             print(f"{orbital}^{value}")
+    print("*"*10+"\n")
 
 
 
