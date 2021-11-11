@@ -62,7 +62,7 @@ def mountain_afba(mountain_afba_list,periodic,atomic_number):
                 pass
 
 
-        if orbital.endswith("p") and atomic_number >= 3:
+        if orbital.endswith("p"):
             max = 6
             done = False
 
@@ -79,7 +79,7 @@ def mountain_afba(mountain_afba_list,periodic,atomic_number):
                 pass
 
         
-        if orbital.endswith("d") and atomic_number >= 4:
+        if orbital.endswith("d"):
             max = 10
             done = False
             while not done and max >= 1:
@@ -94,7 +94,7 @@ def mountain_afba(mountain_afba_list,periodic,atomic_number):
             else:
                 pass
 
-        if orbital.endswith("f") and atomic_number >= 5:
+        if orbital.endswith("f"):
             max = 14
             done = False
             while not done and max >= 1:
