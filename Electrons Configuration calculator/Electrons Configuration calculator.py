@@ -7,8 +7,19 @@ mountain_afba_fillin = {
                 }
 periodicity = {"He":[1,2],"Ne":[2,10],"Ar":[3,18],"Kr":[4,36],"Xe":[5,54],"Rn":[6,86]}
 
-
 def menu():
+    global arranged
+    global mountain_afba_fillin
+    global periodicity
+    arranged = ["1s","2s","2p","3s","3p","3d","4s","4p","4d","4f","5s","5p","5d","5f","6s","6p","6d","7s","7p"]
+    mountain_afba_fillin = {
+                    "1s":"","2s":"","2p":"","3s":"","3p":"",
+                    "4s":"","3d":"","4p":"","5s":"","4d":"","5p":"",
+                    "6s":"","4f":"","5d":"","6p":"","7s":"","5f":"",
+                    "6d":"","7p":"",
+                    }
+    periodicity = {"He":[1,2],"Ne":[2,10],"Ar":[3,18],"Kr":[4,36],"Xe":[5,54],"Rn":[6,86]}
+
     print("*-*"*10)
     print("Electron's Configuration calculator")
     print("1- Summarized electron configuration 2- Complete electron configuration ")
