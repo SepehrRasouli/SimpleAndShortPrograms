@@ -16,7 +16,7 @@ def start_reminder(reminder):
     pass
 
 
-def reminder(reminder,date):
+def reminder_tools(reminder,date,delete_reminder=False):
     active_reminders = []
     #     ┌─────────────────┐
     #     │                 │
@@ -98,6 +98,23 @@ def reminder(reminder,date):
             print("Reminder set")
             with open("database.txt", "a") as file:
                 file.write("{reminder}/{datetime.datetime.now}\n")
+
+
+    # Deleting reminders :
+    print("Checking for reminders to delete...")
+    if delete_reminder:
+        print(f"Deleting reminder {reminder}")
+        try:
+            with open("database.txt", "r") as file:
+                lines = file.readlines()
+            with open("database.txt", "w") as file:
+                for line in lines:
+                    if reminder not in line:
+                        file.write(line+"\n")
+        except Exception as e:
+            print("Unknown Error...")
+        else:
+            print("Reminder deleted")
 
             
 
