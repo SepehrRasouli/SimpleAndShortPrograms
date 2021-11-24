@@ -1,3 +1,4 @@
+# CODE STILL IN PRODUCTION !
 # Simple app to record tasks and their times , with notifications and reminders
 import argparse as arg
 import threading
