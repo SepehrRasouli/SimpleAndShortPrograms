@@ -97,7 +97,9 @@ def reminder(reminder,date):
         else:
             print("Reminder set")
             with open("database.txt", "a") as file:
-                file.write("{reminder}/{datetime.datetime.now}")
+                file.write("{reminder}/{datetime.datetime.now}\n")
+
+            
 
     
 
