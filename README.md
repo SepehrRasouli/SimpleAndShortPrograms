@@ -8,11 +8,5 @@ Simple and short programs to do some good stuff !
 - Infected game with pybotnet
 - Electron's configuration calculator
 - Tasks App * To control tasks, reminders and etc.* *Still In Production*
-* Apps i made with C# 
-  |___ - Time and date widget
-  |___ - Media Player
-* My Old Programs
-  |___ - Live Coding
-  |___ - Password Generator
-  |___ - Text To Hex
-  |___ - Timer
+* Apps i made with C#: Time and date widget, Media Player
+* My Old Programs: Live Coding,Password Generator,Text To Hex,Timer
