@@ -3,6 +3,7 @@
 import argparse as arg
 import threading
 import datetime
+from dateutil.parser import parse
 """
 -r For reminders
 -t For tasks
@@ -13,11 +14,18 @@ import datetime
 -tl For task list
 -dr To delete a reminder
 """
+def argparser(args):
+    if args.r:
+        reminder_tools(args.r,args.d,args.dr,args.rl)
+
+
+
 def start_reminder(reminder):
     pass
 
 
-def reminder_tools(reminder,date,delete_reminder=False):
+def reminder_tools(
+    reminder:str,date:str,delete_reminder=False,list_reminders=False):
     active_reminders = []
     #     ┌─────────────────┐
     #     │                 │
@@ -46,24 +54,36 @@ def reminder_tools(reminder,date,delete_reminder=False):
     #   ┌───────────────────────┐                │
     #   │  Is the user          │<───────────────│
     #   │  Requesting to add a  │
-    #   │  new reminder?        ├─────┐
-    #   │                       │     │
-    #   │                       │     │
-    #   └─────┬─────────────────┘     │
-    #         │                       │
-    #         No                     Yes
-    #         │                       │
-    #         │                       ▼
-    #         │                       │
-    # ┌───────┴─────┐   ┌─────────────┴─────┐
-    # │             │   │      Add the new  │
-    # │     End     │   │ Date and time Into│
-    # └─────────────┘   │ database.txt      │
-    #                   │ And run a new     │
-    #                   │ Thread for the    │
-    #                   │ Reminder          │
-    #                   └───────────────────┘
-
+    #   │  new reminder?        ├──────┐
+    #   │                       │      │
+    #   │                       │      │
+    #   └─────┬─────────────────┘      │
+    #         │                        │
+    #         No                      Yes
+    #         │                        │
+    #         │                        ▼
+    #         │                        │
+    # ┌───────┴─────┐                  │
+    # │  Does the   │                  │
+    # │  User want  │                  │
+    # │  To list    │<─  ┌─────────────┴─────┐
+    # │  reminders? │ │  │  Add the new      │
+    # │             │ │  │ Date and time Into│
+    # └────│───│────┘ │  │ database.txt      │
+    #      │   │      │  │ And run a new     │
+    #      Yes No     │  │ thread for the    │
+    #      │   │      │──│   reminder        │
+    #      │   │──────   └───────────────────┘             
+    # ┌────┴─────┐    │                   
+    # │ List the │    │
+    # │remidners │    │   
+    # │          │    │
+    # │          │    │
+    # │          │    │
+    # └────┬─────┘    │
+    # ┌────┴─────┐    │                   
+    # │  End     │<───│
+    # └──────────┘
 
     print("Checking for active Reminders...")
 
@@ -84,6 +104,18 @@ def reminder_tools(reminder,date,delete_reminder=False):
             new_reminder = threading.Thread(target=start_reminder, args=(element,))
             new_reminder.start()
 
+    # Checking if the date is correct
+    date = parse(date)
+
+    if date.year and date.month and date.day and \
+    date.hour and date.minute and date.second:
+        print("Date is correct")
+
+    else:
+        print("Date is not correct")
+        return "Date Is Not Correct."
+
+
 
     # Setting new reminders :
     print("Setting new reminders...")
@@ -93,33 +125,48 @@ def reminder_tools(reminder,date,delete_reminder=False):
             new_reminder = threading.Thread(target=start_reminder, args=(reminder,))
             new_reminder.start()
         except Exception as e:
-            print("Unknown Error...")
+            return e
 
         else:
             print("Reminder set")
             with open("database.txt", "a") as file:
-                file.write("{reminder}/{datetime.datetime.now}\n")
+                file.write(f"{reminder}/{date}\n")
 
+    else:
+        print("No reminder set")
 
     # Deleting reminders :
     print("Checking for reminders to delete...")
-    if delete_reminder:
+    if delete_reminder and reminder:
         print(f"Deleting reminder {reminder}")
         try:
             with open("database.txt", "r") as file:
                 lines = file.readlines()
             with open("database.txt", "w") as file:
                 for line in lines:
-                    if reminder not in line:
+                    if f"{reminder}/{date}" not in line:
                         file.write(line+"\n")
         except Exception as e:
             print("Unknown Error...")
+            return e
         else:
             print("Reminder deleted")
 
-            
+    else:
+        print("No reminder to delete")
 
-    
+    if list_reminders:
+        print("Listing reminders...")
+        try:
+            with open("database.txt", "r") as file:
+                lines = file.readlines()
+            for line in lines:
+                print(line)
+        except Exception as e:
+            print("Unknown Error...")
+            return e
+        else:
+            print("Reminders listed")
 
 
 parser = arg.ArgumentParser(description="Simple app to record tasks and their times , with notifications and reminders")
@@ -129,6 +176,5 @@ parser.add_argument("-d", "--date", help="Date of task")
 parser.add_argument("-du", "--duration", help="Duration of task in seconds")
 parser.add_argument("-c", "--comment", help="Comment for task")
 args = parser.parse_args()
-if args.reminder and args.du:
-    print("Reminder set for {} seconds".format(args.du))
+argparser(args)
 
