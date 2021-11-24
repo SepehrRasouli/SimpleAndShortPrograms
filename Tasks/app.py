@@ -1,5 +1,7 @@
 # Simple app to record tasks and their times , with notifications and reminders
 import argparse as arg
+import threading
+import time
 """
 -r For reminders
 -t For tasks
@@ -10,8 +12,12 @@ import argparse as arg
 -tl For task list
 -dr To delete a reminder
 """
+def start_reminder(reminder):
+    pass
+
 
 def reminder():
+    active_reminders = []
     #     ┌─────────────────┐
     #     │                 │
     #     │      Start      │
@@ -36,15 +42,15 @@ def reminder():
     #              │                     │Each reminder.│
     #              │                     │              │
     #              ▼                     └──────────────┘
-    #   ┌───────────────────────┐
-    #   │  Is the user          │
+    #   ┌───────────────────────┐                │
+    #   │  Is the user          │<───────────────│
     #   │  Requesting to add a  │
     #   │  new reminder?        ├─────┐
     #   │                       │     │
     #   │                       │     │
     #   └─────┬─────────────────┘     │
     #         │                       │
-    #         │                       │
+    #         No                     Yes
     #         │                       │
     #         │                       ▼
     #         │                       │
@@ -56,10 +62,28 @@ def reminder():
     #                   │ Thread for the    │
     #                   │ Reminder          │
     #                   └───────────────────┘
+
+
     print("Checking for active Reminders...")
+
+    # Checking for active reminders :
     with open("database.txt", "r") as file:
         for element in file:
-            pass
+            active_reminders.append(element)
+
+
+    active_reminders = [x.strip() for x in active_reminders]
+    if len(active_reminders) == 0:
+        print("No active reminders")
+
+    else:
+        print("Active reminders : ")
+        for element in active_reminders:
+            print(element)
+            new_reminder = threading.Thread(target=start_reminder, args=(element,))
+            new_reminder.start()
+            
+
 
 parser = arg.ArgumentParser(description="Simple app to record tasks and their times , with notifications and reminders")
 parser.add_argument("-r", "--reminder", help="Reminder for task", action="store_true")
