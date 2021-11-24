@@ -1,7 +1,7 @@
 # Simple app to record tasks and their times , with notifications and reminders
 import argparse as arg
 import threading
-import time
+import datetime
 """
 -r For reminders
 -t For tasks
@@ -16,7 +16,7 @@ def start_reminder(reminder):
     pass
 
 
-def reminder():
+def reminder(reminder,date):
     active_reminders = []
     #     ┌─────────────────┐
     #     │                 │
@@ -82,7 +82,24 @@ def reminder():
             print(element)
             new_reminder = threading.Thread(target=start_reminder, args=(element,))
             new_reminder.start()
-            
+
+
+    # Setting new reminders :
+    print("Setting new reminders...")
+    if reminder:
+        print(f"Setting reminder {reminder}")
+        try:
+            new_reminder = threading.Thread(target=start_reminder, args=(reminder,))
+            new_reminder.start()
+        except Exception as e:
+            print("Unknown Error...")
+
+        else:
+            print("Reminder set")
+            with open("database.txt", "a") as file:
+                file.write("{reminder}/{datetime.datetime.now}")
+
+    
 
 
 parser = arg.ArgumentParser(description="Simple app to record tasks and their times , with notifications and reminders")
