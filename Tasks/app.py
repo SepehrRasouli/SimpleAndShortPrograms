@@ -101,9 +101,10 @@ def reminder_tools(
         print("Active reminders : ")
         for element in active_reminders:
             print(element)
-            new_reminder = threading.Thread(target=start_reminder, args=(element,))
+            new_reminder = threading.Thread(target=start_reminder, args=(element,)) #TODO : Fix start_reminder
             new_reminder.start()
 
+    # If not :
     # Checking if the date is correct
     date = parse(date)
 
