@@ -18,7 +18,8 @@ def argparser(args):
     if args.r:
         reminder_tools(args.r,args.d,args.dr,args.rl)
 
-
+    if args.t:
+        tasks_tools(args.t,args.d,args.dr,args.rl)
 
 def start_reminder(reminder):
     pass
@@ -169,6 +170,8 @@ def reminder_tools(
         else:
             print("Reminders listed")
 
+def tasks_tools(task:str,date:str,duration:str,comment:str,list_tasks=False):
+    pass
 
 parser = arg.ArgumentParser(description="Simple app to record tasks and their times , with notifications and reminders")
 parser.add_argument("-r", "--reminder", help="Reminder for task", action="store_true")
