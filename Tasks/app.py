@@ -13,13 +13,15 @@ from dateutil.parser import parse
 -rl For reminder list
 -tl For task list
 -dr To delete a reminder
+-dt To delete a task
 """
 def argparser(args):
     if args.r:
         reminder_tools(args.r,args.d,args.dr,args.rl)
+        #TODO : Add comment to reminder tools , it is for both tasks and reminders.
 
     if args.t:
-        tasks_tools(args.t,args.d,args.dr,args.rl)
+        tasks_tools(args.t,args.du,args.dt,args.tl,args.c)
 
 def start_reminder(reminder):
     pass
@@ -153,6 +155,7 @@ def reminder_tools(
             return e
         else:
             print("Reminder deleted")
+            # TODO : Delete the reminder from the active reminders list.
 
     else:
         print("No reminder to delete")
