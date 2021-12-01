@@ -17,18 +17,19 @@ from dateutil.parser import parse
 """
 def argparser(args):
     if args.r:
-        reminder_tools(args.r,args.d,args.dr,args.rl)
+        reminder_tools(args.r,args.d,args.dr,args.lr)
         #TODO : Add comment to reminder tools , it is for both tasks and reminders.
 
     if args.t:
-        tasks_tools(args.t,args.du,args.dt,args.tl,args.c)
+        tasks_tools(args.t,args.du,args.c,args.dt,args.lt)
 
 def start_reminder(reminder):
+    #TODO : Add comment and etc here.
     pass
 
 
 def reminder_tools(
-    reminder:str,date:str,delete_reminder=False,list_reminders=False):
+    reminder:str,date:str,comment:str,delete_reminder=False,list_reminders=False):
     active_reminders = []
     #     ┌─────────────────┐
     #     │                 │
@@ -173,7 +174,7 @@ def reminder_tools(
         else:
             print("Reminders listed")
 
-def tasks_tools(task:str,date:str,duration:str,comment:str,list_tasks=False):
+def tasks_tools(task:str,duration:str,comment:str,delete_tasks=False,list_tasks=False):
     pass
 
 parser = arg.ArgumentParser(description="Simple app to record tasks and their times , with notifications and reminders")
@@ -182,6 +183,7 @@ parser.add_argument("-t", "--task", help="Task to be recorded")
 parser.add_argument("-d", "--date", help="Date of task")
 parser.add_argument("-du", "--duration", help="Duration of task in seconds")
 parser.add_argument("-c", "--comment", help="Comment for task")
+#TODO : Add other args
 args = parser.parse_args()
 argparser(args)
 
