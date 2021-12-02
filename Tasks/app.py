@@ -23,7 +23,7 @@ def argparser(args):
     if args.t:
         tasks_tools(args.t,args.du,args.c,args.dt,args.lt)
 
-def start_reminder(reminder,comment:str = '',date:str = ''):
+def start_reminder(reminder,comment:str = '',date:str = '',delete_reminder:bool = False):
     # This function stores the reminders in a dicitonary and keeps track of them
     # when the timer is over , it will send a notification , and if it's prompted to delete
     # a reminder it will change the dictionary value of that remidner to 0 so the thread would
@@ -87,7 +87,7 @@ def reminder_tools(
 
     # Deleting reminders :
     print("Checking for reminders to delete...")
-    if delete_reminder and reminder:
+    if delete_reminder and reminder and date:
         print(f"Deleting reminder {reminder}")
         try:
             with open("database.txt", "r") as file:
@@ -101,10 +101,10 @@ def reminder_tools(
             return e
         else:
             print("Reminder deleted")
-            # TODO : Delete the reminder from the active reminders list.
+            start_reminder(f"{reminder}/{date}",delete_reminder=True)
 
     else:
-        print("No reminder to delete")
+        print("No reminder to delete or not efficent data to delete the reminder.")
 
     if list_reminders:
         print("Listing reminders...")
