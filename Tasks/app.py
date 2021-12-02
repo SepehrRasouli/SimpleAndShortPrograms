@@ -24,6 +24,10 @@ def argparser(args):
         tasks_tools(args.t,args.du,args.c,args.dt,args.lt)
 
 def start_reminder(reminder,comment:str = '',date:str = ''):
+    # This function stores the reminders in a dicitonary and keeps track of them
+    # when the timer is over , it will send a notification , and if it's prompted to delete
+    # a reminder it will change the dictionary value of that remidner to 0 so the thread would
+    # be able to check for it and terminate itself.
     pass
 
 
