@@ -23,8 +23,8 @@ def argparser(args):
     if args.t:
         tasks_tools(args.t,args.du,args.c,args.dt,args.lt)
 
-def start_reminder(reminder):
-    #TODO : Add comment and etc here.
+def start_reminder(reminder,comment:str = '',date:str = ''):
+
     pass
 
 
@@ -127,7 +127,7 @@ def reminder_tools(
     if reminder:
         print(f"Setting reminder {reminder}")
         try:
-            new_reminder = threading.Thread(target=start_reminder, args=(reminder,))
+            new_reminder = threading.Thread(target=start_reminder, args=(reminder,date,comment))
             new_reminder.start()
         except Exception as e:
             return e
@@ -135,7 +135,7 @@ def reminder_tools(
         else:
             print("Reminder set")
             with open("database.txt", "a") as file:
-                file.write(f"{reminder}/{date}\n")
+                file.write(f"{reminder}/{date}/{comment}\n")
 
     else:
         print("No reminder set")
