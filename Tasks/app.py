@@ -24,71 +24,12 @@ def argparser(args):
         tasks_tools(args.t,args.du,args.c,args.dt,args.lt)
 
 def start_reminder(reminder,comment:str = '',date:str = ''):
-
     pass
 
 
 def reminder_tools(
     reminder:str,date:str,comment:str,delete_reminder=False,list_reminders=False):
     active_reminders = []
-    #     ┌─────────────────┐
-    #     │                 │
-    #     │      Start      │
-    #     │                 │
-    #     └────────┬────────┘
-    #              │
-    #              │
-    #              │
-    #              │
-    #              │
-    #              │
-    #              │
-    #              ▼
-    #      ┌───────────────┐
-    #      │ Is there any  │     Yes
-    #      │ Active        ├──────────────────┐
-    #      │ Reminders?    │                  ▼
-    #      └───────┬───────┘             ┌──────────────┐
-    #              │                     │Import them   │
-    #              │                     │And run new   │
-    #           No │                     │Threads For   │
-    #              │                     │Each reminder.│
-    #              │                     │              │
-    #              ▼                     └──────────────┘
-    #   ┌───────────────────────┐                │
-    #   │  Is the user          │<───────────────│
-    #   │  Requesting to add a  │
-    #   │  new reminder?        ├──────┐
-    #   │                       │      │
-    #   │                       │      │
-    #   └─────┬─────────────────┘      │
-    #         │                        │
-    #         No                      Yes
-    #         │                        │
-    #         │                        ▼
-    #         │                        │
-    # ┌───────┴─────┐                  │
-    # │  Does the   │                  │
-    # │  User want  │                  │
-    # │  To list    │<─  ┌─────────────┴─────┐
-    # │  reminders? │ │  │  Add the new      │
-    # │             │ │  │ Date and time Into│
-    # └────│───│────┘ │  │ database.txt      │
-    #      │   │      │  │ And run a new     │
-    #      Yes No     │  │ thread for the    │
-    #      │   │      │──│   reminder        │
-    #      │   │──────   └───────────────────┘             
-    # ┌────┴─────┐    │                   
-    # │ List the │    │
-    # │remidners │    │   
-    # │          │    │
-    # │          │    │
-    # │          │    │
-    # └────┬─────┘    │
-    # ┌────┴─────┐    │                   
-    # │  End     │<───│
-    # └──────────┘
-
     print("Checking for active Reminders...")
 
     # Checking for active reminders :
