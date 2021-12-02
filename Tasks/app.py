@@ -17,8 +17,8 @@ from dateutil.parser import parse
 """
 def argparser(args):
     if args.r:
-        reminder_tools(args.r,args.d,args.dr,args.lr)
-        #TODO : Add comment to reminder tools , it is for both tasks and reminders.
+        reminder_tools(args.r,args.d,args.c,args.dr,args.lr)
+        
 
     if args.t:
         tasks_tools(args.t,args.du,args.c,args.dt,args.lt)
