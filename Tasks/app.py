@@ -28,11 +28,26 @@ def start_reminder(reminder,comment:str = '',date:str = '',delete_reminder:bool 
     # when the timer is over , it will send a notification , and if it's prompted to delete
     # a reminder it will change the dictionary value of that remidner to 0 so the thread would
     # be able to check for it and terminate itself.
-    pass
+    def run_reminder(reminders):
+        pass #TODO : Fix run_reminder
+    reminders = {}
+    if reminder in reminders.keys() and [date,comment] in reminders[reminder]:
+        print("Reminder already exists")
+        return "Reminder already exists"
+    
+    elif reminder in reminder.keys():
+        print("A similar reminder exists")
+        return "A similar reminder exists"
 
 
-def reminder_tools(
-    reminder:str,date:str,comment:str,delete_reminder=False,list_reminders=False):
+    else:
+        print("Setting reminder...")
+        reminders[reminder] = [date,comment] #TODO : Fix this
+
+
+
+
+def reminder_tools(reminder:str,date:str,comment:str,delete_reminder=False,list_reminders=False):
     active_reminders = []
     print("Checking for active Reminders...")
 
