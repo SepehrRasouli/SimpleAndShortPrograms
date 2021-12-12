@@ -34,7 +34,7 @@ def start_reminder(reminder,comment:str = '',date:str = '',delete_reminder:bool 
     reminders = {}
     if reminder in reminders.keys() and [date,comment] in reminders[reminder]:
         print("Reminder already exists")
-        return "Reminder already exists"
+        return "Reminder already exists" #TODO : Probably Change all of returns to a logger.
     
     elif reminder in reminder.keys():
         print("A similar reminder exists")
@@ -48,8 +48,6 @@ def start_reminder(reminder,comment:str = '',date:str = '',delete_reminder:bool 
         thread.start()
         print("Reminder set")
         return "Reminder set"
-
-
 
 
 
