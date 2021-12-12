@@ -28,8 +28,9 @@ def start_reminder(reminder,comment:str = '',date:str = '',delete_reminder:bool 
     # when the timer is over , it will send a notification , and if it's prompted to delete
     # a reminder it will change the dictionary value of that remidner to 0 so the thread would
     # be able to check for it and terminate itself.
-    def run_reminder(reminders):
-        pass #TODO : Fix run_reminder
+    def run_reminder(reminder,reminderdata,reminder_database):
+        while reminder in reminders and reminder_database[reminder] == reminderdata:
+            pass #TODO : Use datetime and other libraries to run the reminder
     reminders = {}
     if reminder in reminders.keys() and [date,comment] in reminders[reminder]:
         print("Reminder already exists")
@@ -42,7 +43,12 @@ def start_reminder(reminder,comment:str = '',date:str = '',delete_reminder:bool 
 
     else:
         print("Setting reminder...")
-        reminders[reminder] = [date,comment] #TODO : Fix this
+        reminders[reminder] = [date,comment] #TODO : Check this
+        thread = threading.Thread(target=run_reminder, args=(reminder,reminders[reminder],reminders))
+        thread.start()
+        print("Reminder set")
+        return "Reminder set"
+
 
 
 
