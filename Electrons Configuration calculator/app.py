@@ -1,5 +1,5 @@
 import colorama
-
+from colorama import Fore, Back, Style
 class Electrons_Configurations:
     #TODO: Complete This Class
     def __init__(self,atomic_number,charge):
