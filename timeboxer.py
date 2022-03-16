@@ -44,3 +44,6 @@ class state:
         else:
             verboseprinting("ERR: statefile not found.")
 
+class list_ctrl:
+    def add_entry(self,time='now',interval=15):
+       pass 
