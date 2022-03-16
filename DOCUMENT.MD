@@ -1,1 +1,2 @@
-* statedata = {timebox_file:int}
+* statedata: statedata = {timebox_file:int}
+* maindata: maindata = {[start_time:str:"H:M",end_time:str:"H:M",interval:int]}
