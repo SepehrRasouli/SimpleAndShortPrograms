@@ -17,30 +17,30 @@ parser.add_argument("-v","--verbose",help="verbose",action="store_true")
 args = parser.parse_args()
 
 verboseprinting = print if args.verbose else lambda *a,**k:None
-
-def read_state():
-    verboseprinting("Reading State...")
-    if os.path.isfile("state"):
-        with open("state","rb") as statefile:
-            data = pickle.load(statefile)
-            verboseprinting(f"State:{data}")
-            return data
-    
-    else:
-        verboseprinting("ERR: statefile not found.")
+class state:
+    def read_state(self):
+        verboseprinting("Reading State...")
+        if os.path.isfile("state"):
+            with open("state","rb") as statefile:
+                data = pickle.load(statefile)
+                verboseprinting(f"State:{data}")
+                return data
         
-def change_state(new_state):
-    verboseprinting("Changing state")
-    if os.path.isfile("state"):
-        with open("state","rb") as statefile:
-            data = pickle.load(statefile)
-            verboseprinting(f"Current State:{data}")
-            verboseprinting(f"Changing State To : {new_state}")
+        else:
+            verboseprinting("ERR: statefile not found.")
             
-        with open("state","wb") as statefile:
-            pickle.dump({"statedata":new_state},statefile)
-            verboseprinting(f"Changed state.")
+    def change_state(self,new_state):
+        verboseprinting("Changing state")
+        if os.path.isfile("state"):
+            with open("state","rb") as statefile:
+                data = pickle.load(statefile)
+                verboseprinting(f"Current State:{data}")
+                verboseprinting(f"Changing State To : {new_state}")
+                
+            with open("state","wb") as statefile:
+                pickle.dump({"statedata":new_state},statefile)
+                verboseprinting(f"Changed state.")
 
-    else:
-        verboseprinting("ERR: statefile not found.")
+        else:
+            verboseprinting("ERR: statefile not found.")
 
