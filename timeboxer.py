@@ -1,12 +1,16 @@
 import argparse as arg
+from datetime import datetime
 import pickle,os
-from tabnanny import verbose
-from types import new_class
 from colorama import Fore,init
 init(autoreset=True)
 parser = arg.ArgumentParser
 
-parser.add_argument("-a","--add",help="adds a new entry. time: default:now,interval: default:15 min")
+parser.add_argument(
+    "-a","--add",help=
+    """
+        adds a new entry. task_details: default: None, time: default:now: 'H:M' format,when: default: now(AM/PM) interval: default:15 min
+    """
+    )
 parser.add_argument("-r","--remove",help="removes an entry. task-num: default:0")
 parser.add_argument("-sh","--show",help="shows timeboxing text. show_colors: default:True",action="store_false")
 parser.add_argument("-sw","--switch",help="switches to another list. list-num: default=0")
@@ -45,5 +49,20 @@ class state:
             verboseprinting("ERR: statefile not found.")
 
 class list_ctrl:
-    def add_entry(self,time='now',interval=15):
-       pass 
+    @staticmethod
+    def when_is_now():
+        return [datetime.today().strftime("%I/%M/%p").split("/")] # Returns ["Hour in 12-hour format","minute","AM/PM"]
+
+
+    def add_entry(self,task_details,time='now',when='now',interval=15):
+        verboseprinting(f"Adding new entry task_details:{task_details}, time:{time},interval:{interval}")
+        time_data = self.when_is_now()
+        when = when if when != "now" else time_data[-1] 
+        time = time if time != "now" else ':'.join(time_data[0:-1])
+        
+
+        verboseprinting("")
+
+
+        
+       
