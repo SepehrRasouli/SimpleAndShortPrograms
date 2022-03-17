@@ -53,16 +53,25 @@ class list_ctrl:
     def when_is_now():
         return [datetime.today().strftime("%I/%M/%p").split("/")] # Returns ["Hour in 12-hour format","minute","AM/PM"]
 
-
+    def read_data(self):
+        state = state()
+        data = state.read_state()
+        if not isinstance(data,dict):
+            return "ERR: state-data type is not dict"
+        file_to_read = data["timebox_file"]
+        with open(file_to_read,'rb') as file:
+            data = pickle.load(file)
+            return data
+        
     def add_entry(self,task_details,time='now',when='now',interval=15):
         verboseprinting(f"Adding new entry task_details:{task_details}, time:{time},interval:{interval}")
         time_data = self.when_is_now()
         when = when if when != "now" else time_data[-1] 
         time = time if time != "now" else ':'.join(time_data[0:-1])
+        verboseprinting(f"selected {time_data=},{when=},{time=}")
+        state = state()
+        data = state.read_state()
+        if not isinstance(data,dict):
+            return "ERR: state-data type is not dict"
+        file_to_write = data["timebox_file"]
         
-
-        verboseprinting("")
-
-
-        
-       
