@@ -9,11 +9,11 @@ parser.add_argument(
     "-a","--add",help=
     """
         adds a new entry. task_details: default: None, time: default:now: 'H:M' format,when: default: now(AM/PM) interval: default:15 min
-    """,nargs=4,metavar='\b'
+    """,nargs=4,metavar="\b"
     )
 parser.add_argument("-r","--remove",help="removes an entry. task-num: default:0",nargs=1,metavar='\b')
 parser.add_argument("-sh","--show",help="shows timeboxing text.")
-parser.add_argument("-sw","--switch",help="switches to another list. list-num: default=0",nargs=1,metavar='\b')
+parser.add_argument("-sw","--switch",help="switches to another list. list-num: default=1",nargs=1,metavar='\b')
 parser.add_argument("-cs","--current-state",help="prints current state",action="store_true")
 parser.add_argument("-m","--make",help="makes a new list. list-num: default:None",nargs=1,metavar='\b')
 parser.add_argument("-d","--delete",help="deletes a list. list-num: default:None",nargs=1,metavar='\b')
@@ -55,12 +55,12 @@ class list_ctrl:
         '''
         # Returns ["Hour in 12-hour format","minute","AM/PM"]
         '''
-        return [datetime.today().strftime("%I/%M/%p").split("/")]
+        return datetime.today().strftime("%I/%M/%p").split("/")
 
     def read_data(self) -> dict:
-        state = state()
-        data = state.read_state()
-        file_to_read = data["timebox_file"]
+        state_ctrl = state()
+        current_state = state_ctrl.read_state()
+        file_to_read = current_state["timebox_file"]
         with open(file_to_read,'rb') as file:
             data = pickle.load(file)
             return data
@@ -79,11 +79,11 @@ class list_ctrl:
         time_data = self.when_is_now()
         when = when if when != "now" else time_data[-1] 
         time = time if time != "now" else ':'.join(time_data[0:-1])
-        end_time = self.calculate_end_time(time,interval)
+        end_time = self.calculate_end_time(time,int(interval))
         verboseprinting(f"selected {time_data=},{when=},{time=}")
-        state = state()
-        state = state.read_state()
-        file_to_write = state["timebox_file"]
+        state_ctrl = state()
+        current_state = state_ctrl.read_state()
+        file_to_write = current_state["timebox_file"]
         entry_data = self.read_data()
         if isinstance(entry_data,dict):
             # start adding data
