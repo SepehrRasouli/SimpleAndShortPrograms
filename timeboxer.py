@@ -9,14 +9,14 @@ parser.add_argument(
     "-a","--add",help=
     """
         adds a new entry. task_details: default: None, time: default:now: 'H:M' format,when: default: now(AM/PM) interval: default:15 min
-    """
+    """,nargs=4,metavar='\b'
     )
-parser.add_argument("-r","--remove",help="removes an entry. task-num: default:0")
-parser.add_argument("-sh","--show",help="shows timeboxing text. show_colors: default:True",action="store_false")
-parser.add_argument("-sw","--switch",help="switches to another list. list-num: default=0")
+parser.add_argument("-r","--remove",help="removes an entry. task-num: default:0",nargs=1,metavar='\b')
+parser.add_argument("-sh","--show",help="shows timeboxing text.")
+parser.add_argument("-sw","--switch",help="switches to another list. list-num: default=0",nargs=1,metavar='\b')
 parser.add_argument("-cs","--current-state",help="prints current state",action="store_true")
-parser.add_argument("-m","--make",help="makes a new list. list-num: default:None")
-parser.add_argument("-d","--delete",help="deletes a list. list-num: default:None")
+parser.add_argument("-m","--make",help="makes a new list. list-num: default:None",nargs=1,metavar='\b')
+parser.add_argument("-d","--delete",help="deletes a list. list-num: default:None",nargs=1,metavar='\b')
 parser.add_argument("-v","--verbose",help="verbose",action="store_true")
 args = parser.parse_args()
 
@@ -74,7 +74,7 @@ class list_ctrl:
             return end_time
 
         
-    def add_entry(self,task_details,time='now',when='now',interval=15):
+    def add_entry(self,task_details:str,time='now',when='now',interval=15):
         verboseprinting(f"Adding new entry task_details:{task_details}, time:{time},interval:{interval}")
         time_data = self.when_is_now()
         when = when if when != "now" else time_data[-1] 
@@ -95,7 +95,7 @@ class list_ctrl:
 
         verboseprinting("Done.")
 
-    def remove_entry(self,task_num):
+    def remove_entry(self,task_num:int):
         state = state()
         state = state.read_state()
         file_to_write = state["timebox_file"]
@@ -107,7 +107,7 @@ class list_ctrl:
             verboseprinting("ERR: Invalid task number.")
             return "Invalid task number."
         
-    def make_new(self,listnum):
+    def make_new(self,listnum:int):
         if os.path.isfile(listnum):
             verboseprinting(f"ERR: {listnum} already exists")
             return f"ERR: {listnum} already exists"
@@ -117,3 +117,12 @@ class list_ctrl:
                 pickle.dump({})
                 verboseprinting("Done.")
                 return "Done."
+
+if args.add:
+    if all(
+        map(
+            lambda x: isinstance(x,str) or x.isidigit()
+            ,args.add[0:len(args.add)-1])):
+                list_ctrl = list_ctrl()
+                list_ctrl.add_entry(*args.add)
+                print("Done.") #TODO: change this
