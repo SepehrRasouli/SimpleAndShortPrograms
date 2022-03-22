@@ -3,7 +3,7 @@ from datetime import datetime,timedelta
 import pickle,os
 from colorama import Fore,init
 init(autoreset=True)
-parser = arg.ArgumentParser
+parser = arg.ArgumentParser()
 
 parser.add_argument(
     "-a","--add",help=
@@ -33,7 +33,7 @@ class state:
         else:
             verboseprinting("ERR: statefile not found.")
             
-    def change_state(self,new_state):
+    def change_state(self,new_state:int):
         verboseprinting("Changing state")
         if os.path.isfile("state"):
             with open("state","rb") as statefile:
@@ -57,12 +57,9 @@ class list_ctrl:
         '''
         return [datetime.today().strftime("%I/%M/%p").split("/")]
 
-    def read_data(self) -> str or dict:
+    def read_data(self) -> dict:
         state = state()
         data = state.read_state()
-        if not isinstance(data,dict):
-            verboseprinting("ERR: state-data type is not dict")
-            return "ERR: state-data type is not dict"
         file_to_read = data["timebox_file"]
         with open(file_to_read,'rb') as file:
             data = pickle.load(file)
@@ -86,9 +83,6 @@ class list_ctrl:
         verboseprinting(f"selected {time_data=},{when=},{time=}")
         state = state()
         state = state.read_state()
-        if not isinstance(state,dict):
-            verboseprinting("ERR: state-data type is not dict")
-            return "ERR: state-data type is not dict"
         file_to_write = state["timebox_file"]
         entry_data = self.read_data()
         if isinstance(entry_data,dict):
@@ -104,9 +98,6 @@ class list_ctrl:
     def remove_entry(self,task_num):
         state = state()
         state = state.read_state()
-        if not isinstance(state,dict):
-            verboseprinting("ERR: state-data type is not dict")
-            return "ERR: state-data type is not dict"
         file_to_write = state["timebox_file"]
         entry_data = self.read_data()
         if task_num in entry_data.keys():
@@ -126,4 +117,3 @@ class list_ctrl:
                 pickle.dump({})
                 verboseprinting("Done.")
                 return "Done."
-
