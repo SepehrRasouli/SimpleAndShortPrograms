@@ -87,33 +87,40 @@ class list_ctrl:
         entry_data = self.read_data()
         if isinstance(entry_data,dict):
             # start adding data
-            entry_data[list(entry_data.keys())[-1]+1] = [
-                time,end_time,when,task_details
-            ]
-            with open(file_to_write,"rb") as f:
-                pickle.dump(entry_data)
+            if entry_data:
+                entry_data[list(entry_data.keys())[-1]+1] = [
+                    time,end_time,when,task_details
+                ]
+            else:
+                entry_data[0] = [
+                    time,end_time,when,task_details
+                ]
+            with open(file_to_write,"wb") as f:
+                pickle.dump(entry_data,f)
 
         verboseprinting("Done.")
 
     def remove_entry(self,task_num:int):
-        state = state()
-        state = state.read_state()
-        file_to_write = state["timebox_file"]
+        state_ctrl = state()
+        current_state = state_ctrl.read_state()
+        file_to_write = current_state["timebox_file"]
         entry_data = self.read_data()
         if task_num in entry_data.keys():
             verboseprinting(f"Deleting task_num {task_num}")
             entry_data.pop(task_num)
+            with open(file_to_write,"wb") as f:
+                pickle.dump(entry_data,f)
         else:
             verboseprinting("ERR: Invalid task number.")
             return "Invalid task number."
         
     def make_new(self,listnum:int):
-        if os.path.isfile(listnum):
+        if os.path.isfile(listnum+'.pickle'):
             verboseprinting(f"ERR: {listnum} already exists")
             return f"ERR: {listnum} already exists"
         
         else:
-            with open(listnum,"wb") as f:
+            with open(listnum+'.pickle',"wb") as f:
                 pickle.dump({})
                 verboseprinting("Done.")
                 return "Done."
@@ -126,3 +133,14 @@ if args.add:
                 list_ctrl = list_ctrl()
                 list_ctrl.add_entry(*args.add)
                 print("Done.") #TODO: change this
+    else:
+        pass #TODO: change this
+
+if args.remove:
+    if ''.join(args.remove).isdigit():
+        list_ctrl = list_ctrl()
+        list_ctrl.remove_entry(int(''.join(args.remove)))
+        print("Done.") #TODO: change this
+
+    else:
+        pass #TODO: change this
