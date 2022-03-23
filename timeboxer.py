@@ -12,15 +12,47 @@ parser.add_argument(
     """,nargs=4,metavar="\b"
     )
 parser.add_argument("-r","--remove",help="removes an entry. task-num: default:0",nargs=1,metavar='\b')
-parser.add_argument("-sh","--show",help="shows timeboxing text.")
+parser.add_argument("-sh","--show",help="shows timeboxing text.",action="store_true")
 parser.add_argument("-sw","--switch",help="switches to another list. list-num: default=1",nargs=1,metavar='\b')
 parser.add_argument("-cs","--current-state",help="prints current state",action="store_true")
 parser.add_argument("-m","--make",help="makes a new list. list-num: default:None",nargs=1,metavar='\b')
-parser.add_argument("-d","--delete",help="deletes a list. list-num: default:None",nargs=1,metavar='\b')
+# parser.add_argument("-d","--delete",help="deletes a list. list-num: default:None",nargs=1,metavar='\b')
 parser.add_argument("-v","--verbose",help="verbose",action="store_true")
 args = parser.parse_args()
 
 verboseprinting = print if args.verbose else lambda *a,**k:None
+
+def choose_color_and_box(task_data):
+    if int(task_data) <= 15:
+        return ["\033[32m","#"] # green
+    
+    if 15 < int(task_data) <= 30:
+        return ["\033[34m","/"] # blue 
+
+    if 30 < int(task_data) <= 45:
+        return ["\033[0;35m","*"] # purple
+    
+    if int(task_data) > 45:
+        return ["\033[31m","^-"]
+
+    else:
+        return ["\033[39m"] # end
+
+def show(data):
+    reset = "\033[0m"
+    for i in data:
+        chosen_data =  choose_color_and_box(data[i][3])
+        chosen_color = chosen_data[0]
+        header = chosen_color+ \
+        f"""TaskNum: {i} StartTime:{data[i][0]} {data[i][1]}, EndTime:{data[i][2]}, Interval:{data[i][3]}M """.center(150,'-')+reset
+        print('\n')
+        print(header)
+        task_details = "Task Details : " + data[i][4] + ' ' + chosen_data[1]
+        print(chosen_color+chosen_data[1]*len(task_details)+reset)
+        print(chosen_color+task_details+reset)
+        print(chosen_color+chosen_data[1]*len(task_details)+reset)
+
+
 class state:
     def read_state(self):
         verboseprinting("Reading State...")
@@ -33,16 +65,16 @@ class state:
         else:
             verboseprinting("ERR: statefile not found.")
             
-    def change_state(self,new_state:int):
+    def change_state(self,new_state:str):
         verboseprinting("Changing state")
         if os.path.isfile("state"):
             with open("state","rb") as statefile:
                 data = pickle.load(statefile)
                 verboseprinting(f"Current State:{data}")
-                verboseprinting(f"Changing State To : {new_state}")
+                verboseprinting(f"Changing State To : {new_state}.pickle")
                 
             with open("state","wb") as statefile:
-                pickle.dump({"statedata":new_state},statefile)
+                pickle.dump({"timebox_file":new_state+".pickle"},statefile)
                 verboseprinting(f"Changed state.")
 
         else:
@@ -89,11 +121,11 @@ class list_ctrl:
             # start adding data
             if entry_data:
                 entry_data[list(entry_data.keys())[-1]+1] = [
-                    time,end_time,when,task_details
+                    time,end_time,when,interval,task_details
                 ]
             else:
                 entry_data[0] = [
-                    time,end_time,when,task_details
+                    time,end_time,when,interval,task_details
                 ]
             with open(file_to_write,"wb") as f:
                 pickle.dump(entry_data,f)
@@ -144,3 +176,34 @@ if args.remove:
 
     else:
         pass #TODO: change this
+
+if args.switch:
+    state_ctrl = state()
+    state_ctrl.change_state(''.join(args.switch))
+    print("Done.") #TODO: change this
+
+if args.current_state:
+    state_ctrl = state()
+    data = state_ctrl.read_state()
+    print(data)
+
+if args.make:
+    list_ctrl = list_ctrl()
+    if ''.join(args.make).isdigit():
+        if ''.join(args.make).endswith('.pickle'):
+            print("ERR: Don't put .pickle as a list num")
+
+        else:
+            list_ctrl.make_new(int(''.join(args.make)))
+            print("Done.") #TODO: change this
+
+    else:
+        pass #TODO: change this
+
+# if args.delete:
+# later add this.
+
+if args.show:
+    list_ctrl = list_ctrl()
+    data = list_ctrl.read_data()
+    show(data)
