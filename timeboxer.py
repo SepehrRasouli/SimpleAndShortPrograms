@@ -152,7 +152,7 @@ class list_ctrl:
         
         else:
             with open(listnum+'.pickle',"wb") as f:
-                pickle.dump({})
+                pickle.dump({},f)
                 verboseprinting("Done.")
                 return "Done."
 
