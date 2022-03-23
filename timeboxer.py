@@ -33,7 +33,7 @@ def choose_color_and_box(task_data):
         return ["\033[0;35m","*"] # purple
     
     if int(task_data) > 45:
-        return ["\033[31m","^-"]
+        return ["\033[31m","^"]
 
     else:
         return ["\033[39m"] # end
