@@ -4,7 +4,6 @@ import pickle,os
 from colorama import Fore,init
 init(autoreset=True)
 parser = arg.ArgumentParser()
-
 parser.add_argument(
     "-a","--add",help=
     """
@@ -146,7 +145,7 @@ class list_ctrl:
             verboseprinting("ERR: Invalid task number.")
             return "Invalid task number."
         
-    def make_new(self,listnum:int):
+    def make_new(self,listnum:str):
         if os.path.isfile(listnum+'.pickle'):
             verboseprinting(f"ERR: {listnum} already exists")
             return f"ERR: {listnum} already exists"
@@ -194,7 +193,7 @@ if args.make:
             print("ERR: Don't put .pickle as a list num")
 
         else:
-            list_ctrl.make_new(int(''.join(args.make)))
+            list_ctrl.make_new(''.join(args.make))
             print("Done.") #TODO: change this
 
     else:
