@@ -3,8 +3,7 @@
 from typing import List
 import os
 import pickle
-DATABASE_NAME = 'database.pickle'
-VERBOSE = False
+from config import VERBOSE,ALARM_VISUAL,NOTIFICATIONS,SOUND,DATABASE_NAME
 verbose_print = print if VERBOSE else lambda *a,**k:None
 class database:
 	'''Loads and edits database.'''
@@ -74,7 +73,9 @@ class database:
 			return 0
 		database.append(interval)
 		return database
-class showTiemrs:
+
+
+class cli:
     pass
 
 class commandInterpreter:
