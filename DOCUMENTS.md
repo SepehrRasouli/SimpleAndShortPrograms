@@ -1,4 +1,4 @@
-### Commands :
+### Supported Commands :
 * -s --start args:[duration=n hour/min/sec]
 * -p --pause args:[timer_number=n]
 * -r --resume args:[timer_number=n]
