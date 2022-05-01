@@ -10,4 +10,5 @@ Simple and short programs to do some good stuff !
 - Tasks App * To control tasks, reminders and etc.* *Still In Production*
 - Apps i made with C#: Time and date widget, Media Player
 - My Old Programs: Live Coding,Password Generator,Text To Hex,Timer
-- TimeBoxer: For Fun Project. I was tired of google schedule so i made this very simple app to only show time boxes. 
+- TimeBoxer: For Fun. I was tired of google schedule so i made this very simple app to only show time boxes. 
+- SimpleTimer: A very simple timer.
