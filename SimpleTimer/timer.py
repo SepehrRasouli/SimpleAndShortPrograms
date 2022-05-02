@@ -7,11 +7,13 @@ from config import VERBOSE,ALARM_VISUAL,NOTIFICATIONS,SOUND,DATABASE_NAME
 verbose_print = print if VERBOSE else lambda *a,**k:None
 class database:
 	'''Loads and edits database.'''
-	def loadDatabase(self) -> List[int]:
+	def loadDatabase(self,DATABASE_NAME:str=DATABASE_NAME) -> List[int]:
 		'''Loads database and returns a list of intervals.
+		Args:
+			DATABASE_NAME:str: database name to load.
 		Returns:
-		List[int]: loaded database.
-		str: error.
+			List[int]: loaded database.
+			str: error.
 		'''
 		if os.path.isfile(DATABASE_NAME):
 			with open(DATABASE_NAME,'rb') as pf:
@@ -19,18 +21,22 @@ class database:
 			return data
 		verbose_print('Error: Database Not found. Please check DATABASE_NAME variable.')
 
-	def dumpDataToDatabase(self,dump):
+	def dumpDataToDatabase(self,dump:list,DATABASE_NAME:str=DATABASE_NAME):
 		'''Dumps data to pickle database.
 		Args:
-		 dump:str'''
+			DATABASE_NAME:str: database name to dump data to.
+		Args:
+			dump:list'''
 		if os.path.isfile(DATABASE_NAME):
 			with open(DATABASE_NAME,'wb') as pf:
 				pickle.dump(dump,pf)
 			verbose_print('Done dumping data to database.')
 		verbose_print('Error: Database Not found. Please check DATABASE_NAME variable.')
 
-	def createDatabase(self,override:int=False):
+	def createDatabase(self,override:int=False,DATABASE_NAME:str=DATABASE_NAME):
 		'''Creates a new database with DATABASE_NAME variable as it's name.
+		Args:
+			DATABASE_NAME:str: database name to create.
 		Args:
 			override: True to remake existing database. Default is False
 		'''
@@ -47,10 +53,24 @@ class database:
 			pickle.dump([],pf)
 			verbose_print('Done Creating Database.')
 
-	def removeDatabaseEntry(self,entry_index:int) -> list or int:
+	def removeDatabase(self,DATABASE_NAME:str=DATABASE_NAME):
+		'''Removes DATABSE_NAME.
+		Args:
+			DATABASE_NAME:str: database name to remove.
+		Returns:
+		 str: completion message.
+		'''
+		if os.path.isfile(DATABASE_NAME):
+			os.remove(DATABASE_NAME)
+			return 'Done Removing Database.'
+		verbose_print('ERR: Database dosent exist. Please check DATABASE_NAME variable.')
+
+
+	def removeDatabaseEntry(self,entry_index:int,DATABASE_NAME:str=DATABASE_NAME) -> list or int:
 		'''Removes a database entry.
 		Args:
-			entry_index: int
+			entry_index: int: entry index
+			DATABASE_NAME : str: database name to remove entry from.
 		Returns:
 		list: modified database if modification was succsessful.
 		int: If modification was unsuccessful. 
@@ -65,13 +85,14 @@ class database:
 		database.pop(entry_index)
 		return database
 	
-	def addDatabaseEntry(self,interval) -> list or int:
+	def addDatabaseEntry(self,interval,DATABASE_NAME:str=DATABASE_NAME) -> list or int:
 		'''Adds a database entry.
 		Args:
-			data: int
+			DATABASE_NAME:str database name to load.
+			interval:int: time interval.
 		Returns:
-		list: modified database if modification was succsessful.
-		int: If modification was unsuccessful. 
+			list: modified database if modification was succsessful.
+			int: If modification was unsuccessful. 
 		'''   
 		if not isinstance(interval,int):
 			verbose_print('interval is not integer.')
