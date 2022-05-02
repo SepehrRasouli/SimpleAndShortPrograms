@@ -19,6 +19,16 @@ class database:
 			return data
 		verbose_print('Error: Database Not found. Please check DATABASE_NAME variable.')
 
+	def dumpDataToDatabase(self,dump):
+		'''Dumps data to pickle database.
+		Args:
+		 dump:str'''
+		if os.path.isfile(DATABASE_NAME):
+			with open(DATABASE_NAME,'wb') as pf:
+				pickle.dump(dump,pf)
+			verbose_print('Done dumping data to database.')
+		verbose_print('Error: Database Not found. Please check DATABASE_NAME variable.')
+
 	def createDatabase(self,override:int=False):
 		'''Creates a new database with DATABASE_NAME variable as it's name.
 		Args:
@@ -36,7 +46,6 @@ class database:
 		with open(DATABASE_NAME,'wb') as pf:
 			pickle.dump([],pf)
 			verbose_print('Done Creating Database.')
-
 
 	def removeDatabaseEntry(self,entry_index:int) -> list or int:
 		'''Removes a database entry.
@@ -73,7 +82,6 @@ class database:
 			return 0
 		database.append(interval)
 		return database
-
 
 class cli:
     pass
