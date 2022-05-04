@@ -7,7 +7,7 @@ from config import VERBOSE,ALARM_VISUAL,NOTIFICATIONS,SOUND,DATABASE_NAME
 verbose_print = print if VERBOSE else lambda *a,**k:None
 class database:
 	'''Loads and edits database.'''
-	def loadDatabase(self,DATABASE_NAME:str=DATABASE_NAME) -> List[int]:
+	def loadDatabase(self,databaseName:str=DATABASE_NAME) -> List[int] or str:
 		'''Loads database and returns a list of intervals.
 		Args:
 			DATABASE_NAME:str: database name to load.
@@ -15,25 +15,30 @@ class database:
 			List[int]: loaded database.
 			str: error.
 		'''
-		if os.path.isfile(DATABASE_NAME):
-			with open(DATABASE_NAME,'rb') as pf:
-				data = pickle.load(pf)
-			return data
-		verbose_print('Error: Database Not found. Please check DATABASE_NAME variable.')
+		if not isinstance(databaseName,int):
+			if os.path.isfile(DATABASE_NAME):
+				with open(DATABASE_NAME,'rb') as pf:
+					data = pickle.load(pf)
+				return data
+			verbose_print('Error: Database Not found. Please check DATABASE_NAME variable.')
+			return 'Error: Database Not found. Please check DATABASE_NAME variable.'
 
-	def dumpDataToDatabase(self,dump:list,DATABASE_NAME:str=DATABASE_NAME):
+		verbose_print('Error: Database name should not be an integer.')
+		return 'Error: Database name should not be an integer.'
+	def dumpDataToDatabase(self,dump:list,databaseName:str=DATABASE_NAME):
 		'''Dumps data to pickle database.
 		Args:
 			DATABASE_NAME:str: database name to dump data to.
 		Args:
-			dump:list'''
+			dump:list
+		'''
 		if os.path.isfile(DATABASE_NAME):
 			with open(DATABASE_NAME,'wb') as pf:
 				pickle.dump(dump,pf)
 			verbose_print('Done dumping data to database.')
 		verbose_print('Error: Database Not found. Please check DATABASE_NAME variable.')
 
-	def createDatabase(self,override:int=False,DATABASE_NAME:str=DATABASE_NAME):
+	def createDatabase(self,override:int=False,databaseName:str=DATABASE_NAME):
 		'''Creates a new database with DATABASE_NAME variable as it's name.
 		Args:
 			DATABASE_NAME:str: database name to create.
@@ -53,7 +58,7 @@ class database:
 			pickle.dump([],pf)
 			verbose_print('Done Creating Database.')
 
-	def removeDatabase(self,DATABASE_NAME:str=DATABASE_NAME):
+	def removeDatabase(self,databaseName:str=DATABASE_NAME):
 		'''Removes DATABSE_NAME.
 		Args:
 			DATABASE_NAME:str: database name to remove.
@@ -66,7 +71,7 @@ class database:
 		verbose_print('ERR: Database dosent exist. Please check DATABASE_NAME variable.')
 
 
-	def removeDatabaseEntry(self,entry_index:int,DATABASE_NAME:str=DATABASE_NAME) -> list or int:
+	def removeDatabaseEntry(self,entry_index:int,databaseName:str=DATABASE_NAME) -> list or int:
 		'''Removes a database entry.
 		Args:
 			entry_index: int: entry index
@@ -85,7 +90,7 @@ class database:
 		database.pop(entry_index)
 		return database
 	
-	def addDatabaseEntry(self,interval,DATABASE_NAME:str=DATABASE_NAME) -> list or int:
+	def addDatabaseEntry(self,interval,databaseName:str=DATABASE_NAME) -> list or int:
 		'''Adds a database entry.
 		Args:
 			DATABASE_NAME:str database name to load.
