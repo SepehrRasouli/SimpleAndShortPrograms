@@ -4,7 +4,6 @@ from typing import List
 import os
 import pickle
 from config import VERBOSE,ALARM_VISUAL,NOTIFICATIONS,SOUND,DATABASE_NAME
-verbose_print = print if VERBOSE else lambda *a,**k:None
 class database:
 	'''Loads and edits database.'''
 	def loadDatabase(self,databaseName:str=DATABASE_NAME) -> List[int,None,List[int]] or List[int,str,None]:
@@ -30,7 +29,6 @@ class database:
 				with open(DATABASE_NAME,'rb') as pf:
 					data = pickle.load(pf)
 				return [0,None,data]
-			verbose_print('Error: Database Not found. Please check DATABASE_NAME variable.')
 			return [1,'Error: Database Not found. Please check DATABASE_NAME variable.',None]
 
 		return [1,'Error: Database name should not be an integer.',None]
@@ -55,7 +53,6 @@ class database:
 			if os.path.isfile(DATABASE_NAME):
 				with open(DATABASE_NAME,'wb') as pf:
 					pickle.dump(dump,pf)
-				verbose_print('Done dumping data to database.')
 				return [0,None]
 			return [1,'Error: Database Not found. Please check DATABASE_NAME variable.']
 		return [1,'Error: Database name should not be an integer.']
@@ -74,11 +71,9 @@ class database:
 				os.remove(DATABASE_NAME)
 				with open(DATABASE_NAME,'wb') as pf:
 					pickle.dump([],pf)
-				verbose_print('Done Overriding and creating database.')
 
 		with open(DATABASE_NAME,'wb') as pf:
 			pickle.dump([],pf)
-			verbose_print('Done Creating Database.')
 
 	def removeDatabase(self,databaseName:str=DATABASE_NAME):
 		'''Removes DATABSE_NAME.
@@ -90,8 +85,6 @@ class database:
 		if os.path.isfile(DATABASE_NAME):
 			os.remove(DATABASE_NAME)
 			return 'Done Removing Database.'
-		verbose_print('ERR: Database dosent exist. Please check DATABASE_NAME variable.')
-
 
 	def removeDatabaseEntry(self,entry_index:int,databaseName:str=DATABASE_NAME) -> list or int:
 		'''Removes a database entry.
@@ -103,11 +96,9 @@ class database:
 		int: If modification was unsuccessful. 
 		'''    
 		if not isinstance(entry_index,int):
-			verbose_print('entry index is not integer.')
 			return 0
 		database = self.load_database()
 		if not isinstance(database,list):
-			verbose_print('database is not of type list')
 			return 0
 		database.pop(entry_index)
 		return database
@@ -122,11 +113,9 @@ class database:
 			int: If modification was unsuccessful. 
 		'''   
 		if not isinstance(interval,int):
-			verbose_print('interval is not integer.')
 			return 0
 		database = self.load_database()
 		if not isinstance(database,list):
-			verbose_print('database is not of type list')
 			return 0
 		database.append(interval)
 		return database
