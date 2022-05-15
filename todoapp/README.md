@@ -1,2 +1,2 @@
 ### Personal Todo App With Some Other features
-![alt text](https://github.com/SepehrRasouli/SimpleAndShortPrograms/todoapp/blob/master/ScreenShot.jpg?raw=true)
+![alt text](https://github.com/SepehrRasouli/SimpleAndShortPrograms/blob/main/todoapp/ScreenShot.jpg)
