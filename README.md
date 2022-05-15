@@ -7,7 +7,7 @@ Simple and short programs to do some good stuff !
 - Anti-Pybotnet
 - Infected game with pybotnet
 - Electron's configuration calculator
-- Tasks App * To control tasks, reminders and etc.* *Still In Production*
+- Todo App: A very simple todo app with urgency and etc.
 - Apps i made with C#: Time and date widget, Media Player
 - My Old Programs: Live Coding,Password Generator,Text To Hex,Timer
 - TimeBoxer: A very simpler timeboxing app. I was tired of google schedule so i made this very simple app to only show time boxes. 
