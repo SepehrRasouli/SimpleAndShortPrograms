@@ -14,4 +14,5 @@ Simple and short programs to do some good stuff !
 - Reminders: A very simple reminders app *still in development.*
 - Tasks: A very simple app to have tasks, statistics and progress bars for each task. *still in development.*
 - SimpleTimer: A very simple timer. I wanted a FOSS alternative to Microsoft's Alarms's & Clock app but there was no decent alternative so I started writing this app. *still in development.*
-- Tasks: A very simple app to have tasks, statistics and progress bars for each task.
+- Tasks: A very simple app to have tasks, statistics and progress bars for each task. *still in development.*
+- DistractionFreeTelegram: a distraction free telegram client.  *still in development.*
